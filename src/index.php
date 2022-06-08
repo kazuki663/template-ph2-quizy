@@ -1,3 +1,12 @@
+<?php
+require('dbconnect.php');
+?>
+<?php
+$id = $_GET['id'];
+$stmt = $db->query("SELECT * FROM big_questions WHERE id = $id");
+$big_question = $stmt->fetch();
+?>
+
 <!DOCTYPE html>
 <html lang="ja">
 
@@ -5,7 +14,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ガチで東京の人しか解けない！＃東京の難読地名クイズ</title>
+  <title>quizy</title>
   <link rel="stylesheet" href="./normalize.css">
   <link rel="stylesheet" href="./style.css">
   <script src="./main.js" defer></script>
@@ -19,7 +28,7 @@
       </a>
       <a href="http://typingx0.net/sushida/play.html" class= "headerImg">寿司打</a>
     </header>
-    <h4>ガチで東京の人しか解けない！＃東京の難読地名クイズ</h4>
+    <h4><?= $big_question['name'] ;?></h4>
     <div class="kuizy_net">
       <img class= "k" src="https://pbs.twimg.com/profile_images/1352968042024562688/doQgizBj_400x400.jpg" alt="k">
       <a class= "kuizy" href="https://kuizy.net/user/kuizy_net">@kuizy_net</a>
