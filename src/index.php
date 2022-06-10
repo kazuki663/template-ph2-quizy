@@ -5,6 +5,9 @@ require('dbconnect.php');
 $id = $_GET['id'];
 $stmt = $db->query("SELECT * FROM big_questions WHERE id = $id");
 $big_question = $stmt->fetch();
+
+$stmt = $db->query("SELECT * FROM questions WHERE big_question_id = $id");
+$questions = $stmt->fetchAll();
 ?>
 
 <!DOCTYPE html>
@@ -33,8 +36,23 @@ $big_question = $stmt->fetch();
       <img class= "k" src="https://pbs.twimg.com/profile_images/1352968042024562688/doQgizBj_400x400.jpg" alt="k">
       <a class= "kuizy" href="https://kuizy.net/user/kuizy_net">@kuizy_net</a>
     </div>
-  <div id="question_area"></div>
+    <?php foreach($questions as $question) :?>
+    <h1><?= $question['id']; ?>.この地名はなんと読む？</h1>
+  <div class="image-container">
+    <img src="<?= $question['image'] ?>" alt="">
   </div>
+  <ul>
+  <?php 
+  $question_id = $question['id'];
+  $stmt = $db->query("SELECT * FROM choices WHERE question_id = $question_id");
+  $choices = $stmt->fetchAll();
+  foreach($choices as $choice) :
+  ?>
+    <li class="selections"><?= $choice['name']; ?></li>
+    <?php endforeach ; ?>
+  </ul>
+  <?php endforeach ; ?>
+</div>
 
   <!-- <div class="container">
 
