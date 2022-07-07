@@ -1,4 +1,5 @@
 <?php
+
 require('dbconnect.php');
 ?>
 <?php
@@ -6,6 +7,7 @@ $id = $_GET['id'];
 $stmt = $db->query("SELECT * FROM big_questions WHERE id = $id");
 $big_question = $stmt->fetch();
 
+//問題取得
 $stmt = $db->query("SELECT * FROM questions WHERE big_question_id = $id");
 $questions = $stmt->fetchAll();
 ?>
@@ -20,7 +22,7 @@ $questions = $stmt->fetchAll();
   <title>quizy</title>
   <link rel="stylesheet" href="./normalize.css">
   <link rel="stylesheet" href="./style.css">
-  <script src="./main.js" defer></script>
+  <script src="./quiz.js" defer></script>
 </head>
 
 <body>
@@ -33,11 +35,11 @@ $questions = $stmt->fetchAll();
     </header>
     <h4><?= $big_question['name'] ;?></h4>
     <div class="kuizy_net">
-      <img class= "k" src="https://pbs.twimg.com/profile_images/1352968042024562688/doQgizBj_400x400.jpg" alt="k">
+      <img class= "quizy_logo" src="https://pbs.twimg.com/profile_images/1352968042024562688/doQgizBj_400x400.jpg" alt="k">
       <a class= "kuizy" href="https://kuizy.net/user/kuizy_net">@kuizy_net</a>
     </div>
-    <?php foreach($questions as $question) :?>
-    <h1><?= $question['id']; ?>.この地名はなんと読む？</h1>
+    <?php foreach($questions as $index => $question) :?>
+    <h1><?= $index + 1; ?>.この地名はなんと読む？</h1>
   <div class="image-container">
     <img src="<?= $question['image'] ?>" alt="">
   </div>
@@ -46,6 +48,7 @@ $questions = $stmt->fetchAll();
   $question_id = $question['id'];
   $stmt = $db->query("SELECT * FROM choices WHERE question_id = $question_id");
   $choices = $stmt->fetchAll();
+  $shuffles = shuffle($choices);
   foreach($choices as $choice) :
   ?>
     <li class="selections"><?= $choice['name']; ?></li>
@@ -53,127 +56,6 @@ $questions = $stmt->fetchAll();
   </ul>
   <?php endforeach ; ?>
 </div>
-
-  <!-- <div class="container">
-
-    <div class="question-1">
-      <h1>1.この地名はなんと読む？</h1>
-      <div class="image-cntainer">
-        <img src="https://d1khcm40x1j0f.cloudfront.net/quiz/34d20397a2a506fe2c1ee636dc011a07.png" alt="takanawa">
-      </div>
-      <ul>
-        <li>たかなわ</li>
-        <li>こうわ</li>
-        <li>たかわ</li>
-      </ul>
-    </div>
-    <div class="question-1">
-      <h1>2.この地名はなんと読む？</h1>
-      <div class="image-cntainer">
-        <img src="https://d1khcm40x1j0f.cloudfront.net/quiz/512b8146e7661821c45dbb8fefedf731.png" alt="kameido">
-        <ul>
-          <li id="answer-1">かめと</li>
-          <li>かめいど</li>
-          <li>かめど</li>
-        </ul>
-      </div>
-    </div>
-    <div class="question-1">
-
-      <h1>3.この地名はなんと読む？</h1>
-      <div class="image-cntainer">
-        <img src="https://d1khcm40x1j0f.cloudfront.net/quiz/ad4f8badd896f1a9b527c530ebf8ac7f.png" alt="koujimati">
-        <ul>
-          <li>こうじまち</li>
-          <li>おかとまち</li>
-          <li>かゆまち</li>
-        </ul>
-      </div>
-    </div>
-    <div class="question-1">
-
-      <h1>4.この地名はなんと読む？</h1>
-      <div class="image-cntainer">
-        <img src="https://d1khcm40x1j0f.cloudfront.net/quiz/ee645c9f43be1ab3992d121ee9e780fb.png" alt="onarimon">
-        <ul>
-          <li>おかどもん</li>
-          <li>おなりもん</li>
-          <li>ごせいもん</li>
-        </ul>
-      </div>
-    </div>
-    <div class="question-1">
-
-      <h1>5.この地名はなんと読む？</h1>
-      <div class="image-cntainer">
-        <img src="https://d1khcm40x1j0f.cloudfront.net/quiz/6a235aaa10f0bd3ca57871f76907797b.png" alt="todoroki">
-        <ul>
-          <li>とどりき</li>
-          <li>たたりき</li>
-          <li>たたら</li>
-        </ul>
-      </div>
-    </div>
-    <div class="question-1">
-
-      <h1>6.この地名はなんと読む？</h1>
-      <div class="image-cntainer">
-        <img src="https://d1khcm40x1j0f.cloudfront.net/quiz/0b6789cf496fb75191edf1e3a6e05039.png" alt="shakuji">
-        <ul>
-          <li>いじい</li>
-          <li>せきこうい</li>
-          <li>しゃくじい</li>
-        </ul>
-      </div>
-    </div>
-    <div class="question-1">
-
-      <h1>7.この地名はなんと読む？</h1>
-      <div class="image-cntainer">
-        <img src="https://d1khcm40x1j0f.cloudfront.net/quiz/23e698eec548ff20a4f7969ca8823c53.png" alt="zouiki">
-        <ul>
-          <li>ざっしょく</li>
-          <li>ざっしき</li>
-          <li>ぞうしき</li>
-        </ul>
-      </div>
-    </div>
-    <div class="question-1">
-
-      <h1>8.この地名はなんと読む？</h1>
-      <div class="image-cntainer">
-        <img src="https://d1khcm40x1j0f.cloudfront.net/quiz/50a753d151d35f8602d2c3e2790ea6e4.png" alt="okatimati">
-        <ul>
-          <li>ごしろちょう</li>
-          <li>おかちまち</li>
-          <li>みとちょう</li>
-        </ul>
-      </div>
-    </div>
-    <div class="question-1">
-
-      <h1>9.この地名はなんと読む？</h1>
-      <div class="image-cntainer">
-        <img src="https://d1khcm40x1j0f.cloudfront.net/words/8cad76c39c43e2b651041c6d812ea26e.png" alt="sisibone">
-        <ul>
-          <li>ろっこつ</li>
-          <li>しこね</li>
-          <li>ししぼね</li>
-        </ul>
-      </div>
-    </div>
-    <div class="question-1">
-      <h1>10.この地名はなんと読む？</h1>
-      <div class="image-cntainer">
-        <img src="https://d1khcm40x1j0f.cloudfront.net/words/34508ddb0789ee73471b9f17977e7c9c.png" alt="kogure">
-        <ul>
-          <li>こぐれ</li>
-          <li>こしゃく</li>
-          <li>こばく</li>
-        </ul>
-      </div>
-    </div>
-  </div> -->
 </body>
 
 </html>

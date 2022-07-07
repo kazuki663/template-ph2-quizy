@@ -4,11 +4,8 @@ header{
   align-items: center;
   position: fixed;
   height: 60px;
-  /* margin: 0 10px; */
   width: 630px;
   background-color: #FFFFFF;
-  /* padding: 0 10px; */
-  /* box-shadow: 0 0 2px 0 rgb(0, 0, 0, 8%); */
   border-bottom: 1px solid rgb(0, 0, 0, 8%);
 }
 
@@ -19,19 +16,22 @@ header{
 .container{
   margin: 0 auto;
   width: 630px;
+  margin-bottom: 60px;
 }
 
 h4{
-  padding: 80px 15px 0 ;
+  padding: 80px 15px 10px ;
   font-size: 19px;
+  margin: 0;
 }
 
 .kuizy_net{
   display: flex;
   align-items: center;
+  margin: 10px 0;
 }
 
-.k{
+.quizy_logo{
   width: 40px;
   height: 40px;
   border-radius: 20px;
@@ -59,6 +59,15 @@ h1:after{
   content: " ";
 }
 
+.image-container{
+  width: 640px;
+  height: 480px;
+  object-fit: contain;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 ul{
   list-style: none;
 }
@@ -70,8 +79,6 @@ li{
   margin: 10px 0;
   font-weight: 600;
   box-shadow: 0 3px 2px -2px rgb(0 0 0 / 0.13);
-  /* box-shadow: 12px 12px 2px 1px rgba(0, 0, 255, .2); */
-  /* width: 620px; */
   box-sizing: border-box;
 }
 
@@ -108,37 +115,5 @@ h2:after{
   width: 60px;
   height: 3px;
   content: " ";
-}
-
-
-/* .answerBox{
-  padding: 17px;
-} */
-.answerDiv{
-  background-color: #F5F5F5;
-  /* width: 620px; */
-  padding: 17px;
-}
-
-.answer{
-  font: 16px;
-  font-weight: 300;
-}
-.question-1{
-  margin: 30px 15px;
-}
-
-.oneClick {
-  pointer-events: none;
-}
-
-.incorrect_answer {
-  background-color: #FF5028;
-  color: #FFFFFF;
-}
-
-.correct_answer {
-  background-color: #297DFE;
-  color: #FFFFFF;
 }
 
