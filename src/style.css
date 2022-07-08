@@ -72,7 +72,7 @@ ul{
   list-style: none;
 }
 
-li{
+.selections{
   display: block;
   border: 1px solid #ebebeb;
   padding: 13px;
@@ -80,6 +80,8 @@ li{
   font-weight: 600;
   box-shadow: 0 3px 2px -2px rgb(0 0 0 / 0.13);
   box-sizing: border-box;
+  width: 100%;
+  cursor: pointer;
 }
 
 h3{
@@ -115,5 +117,9 @@ h2:after{
   width: 60px;
   height: 3px;
   content: " ";
+}
+
+.correct_answer, .incorrect_answer{
+  display: none;
 }
 
