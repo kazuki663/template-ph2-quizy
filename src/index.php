@@ -52,7 +52,8 @@ $questions = $stmt->fetchAll();
         $shuffles = shuffle($choices);
         foreach ($choices as $num => $choice) :
         ?>
-          <input class="selections" id="<?= $index + 1 . $num + 1 ?>" value="<?= $choice['name']; ?>" readonly>
+        <!-- $idは$GET_['id']でとってきたもの -->
+          <input class="selections" id="<?= $id . ($index + 1) * 3 - 3 + $num + 1 ?>" value="<?= $choice['name']; ?>" readonly>
         <?php endforeach; ?>
           <?php
           foreach($choices as $num => $choice):
@@ -72,21 +73,19 @@ $questions = $stmt->fetchAll();
               //正誤判定表示
               document.getElementById("<?= $choice['id']?>").style.display = "block";
             }
+            document.getElementById("<?= $id .  ($index + 1) * 3 - 3 + $num + 1?>").addEventListener('click', judge, false);
           </script>
               <?php endforeach; ?>
           <script>
-            function restrict() {
+            function restrict<?= $index + 1?>() {
               //1回しか押せない処理
-              document.getElementById("<?= $index + 1 . 1?>").disabled = false;
-              document.getElementById("<?= $index + 1 . 2?>").disabled = false;
-              document.getElementById("<?= $index + 1 . 3?>").disabled = false; 
+              document.getElementById("<?= $id . ($index + 1) * 3 - 2?>").disabled = true;
+              document.getElementById("<?= $id . ($index + 1) * 3 - 1?>").disabled = true;
+              document.getElementById("<?= $id . ($index + 1) * 3?>").disabled = true; 
             };
-            document.getElementById("<?= $index + 1 . 1?>").addEventListener('click', judge, false);
-            document.getElementById("<?= $index + 1 . 2?>").addEventListener('click', judge, false);
-            document.getElementById("<?= $index + 1 . 3?>").addEventListener('click', judge, false);
-            document.getElementById("<?= $index + 1 . 1?>").addEventListener('click', restrict, false);
-            document.getElementById("<?= $index + 1 . 2?>").addEventListener('click', restrict, false);
-            document.getElementById("<?= $index + 1 . 3?>").addEventListener('click', restrict, false);
+            document.getElementById("<?= $id . ($index + 1) * 3 - 2?>").addEventListener('click', restrict<?= $index + 1 ?>, false);
+            document.getElementById("<?= $id . ($index + 1) * 3 - 1?>").addEventListener('click', restrict<?= $index + 1 ?>, false);
+            document.getElementById("<?= $id . ($index + 1) * 3?>").addEventListener('click', restrict<?= $index + 1 ?>, false);
           </script>
       </ul>
     <?php endforeach; ?>
